@@ -4,10 +4,8 @@ var path = require("path");
 var PORT = process.env.PORT || 5000
 var hbs = require("express-handlebars");
 app.use(express.static("static"));
-var page = "Tabela";
 
 const Datastore = require("nedb");
-const internal = require("stream");
 
 const coll1 = new Datastore({
     filename: "kolekcja.db",
@@ -22,24 +20,14 @@ app.engine(
         extname: ".hbs",
         partialsDir: "views/partials",
     })
-); // domyślny layout, potem można go zmienić
+);
 app.set("view engine", "hbs");
 
 app.get("/", function (req, res) {
-    // res.render('index.hbs');   // nie podajemy ścieżki tylko nazwę pliku
-
-    // coll1.find({}, function (err, docs) {
-    //     coll1.count({}, function (err, count) {
-    //         console.log("dokumentów jest: ", count)
-    //         for (var i = 0; i < count; i++) {
     coll1.update({}, { $set: { upd: false } }, { multi: true }, function (err, numUpdated) {
         console.log(numUpdated)
         // console.log(i)
     });
-
-    //         }
-    //     });
-    // })
 
     coll1.find({}, function (err, docs) {
 
@@ -69,49 +57,7 @@ app.get("/handleForm", function (req, res) {
         console.log("losowe id dokumentu: " + newDoc._id);
     });
 
-    coll1.find({}, function (err, docs) {
-        console.log(docs[1]);
-        coll1.count({}, function (err, count) {
-            page = "";
-            for (i = 0; i < count; i++) {
-                tab = [];
-                if (docs[i].a == "on") {
-                    tab[0] = "Tak";
-                } else {
-                    tab[0] = "Nie";
-                }
-                if (docs[i].b == "on") {
-                    tab[1] = "Tak";
-                } else {
-                    tab[1] = "Nie";
-                }
-                if (docs[i].c == "on") {
-                    tab[2] = "Tak";
-                } else {
-                    tab[2] = "Nie";
-                }
-                if (docs[i].d == "on") {
-                    tab[3] = "Tak";
-                } else {
-                    tab[3] = "Nie";
-                }
-                console.log(tab);
-
-                if (i == 0) {
-                    page = `<tr><td>${tab[0]}</td><td>${tab[1]}</td><td>${tab[2]}</td><td>${tab[3]}</td></tr>`;
-                } else {
-                    page += `<tr><td>${tab[0]}</td><td>${tab[1]}</td><td>${tab[2]}</td><td>${tab[3]}</td></tr>`;
-                }
-                tab = [];
-            }
-        });
-    });
-    console.log(page);
-
-    // res.render("/index")
-    coll1.find();
     res.redirect("/");
-    page = "";
 });
 
 app.get("/delete", function (req, res) {
