@@ -5,7 +5,6 @@ var PORT = process.env.PORT || 5000
 var hbs = require("express-handlebars");
 app.use(express.static("static"));
 var page = "Tabela";
-var ino = 0
 
 const Datastore = require("nedb");
 const internal = require("stream");
