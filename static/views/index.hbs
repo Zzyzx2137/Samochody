@@ -1,0 +1,104 @@
+<h1>Zapis/odczyt danych w bazie NEDB</h1>
+<form action="/handleForm" method="get">
+    <div class="dane">Dane pojazdu:</div>
+    <table>
+        <tr>
+            <td class="blue">Ubezpieczony:</td>
+            <td class="short">
+                <input type="checkbox" name="c1" value="on" />
+            </td>
+        </tr>
+        <tr>
+            <td class="blue">Benzyna:</td>
+            <td class="short">
+                <input type="checkbox" name="c2" value="on" />
+            </td>
+        </tr>
+        <tr>
+            <td class="blue">Uszkodzony:</td>
+            <td class="short">
+                <input type="checkbox" name="c3" value="on" />
+            </td>
+        </tr>
+        <tr>
+            <td class="blue">Napęd 4x4:</td>
+            <td class="short">
+                <input type="checkbox" name="c4" value="on" />
+            </td>
+        </tr>
+    </table>
+    <input type="submit" name="bt" />
+</form>
+<div class="base">
+    <div class="dane">Wszystkie pojazdy:</div>
+    <table>
+        <tr>
+            <th>Ubezpieczony</th>
+            <th>Benzyna</th>
+            <th>Uszkodzony</th>
+            <th>Napęd 4x4</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {{#each docs}}
+        <tr>
+            {{#if upd }}
+            <form action="/modify" method="get">
+                <td>
+                    <select name="sl1" onchange="return /sel1">
+                        <option>Tak</option>
+                        <option>Nie</option>
+                        <option>Brak danych</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="sl2">
+                        <option>Tak</option>
+                        <option>Nie</option>
+                        <option>Brak danych</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="sl3">
+                        <option>Tak</option>
+                        <option>Nie</option>
+                        <option>Brak danych</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="sl4">
+                        <option>Tak</option>
+                        <option>Nie</option>
+                        <option>Brak danych</option>
+                    </select>
+                </td>
+                <td class="bt">
+                    <input type="hidden" value="{{_id}}" name="id" />
+                    <input type="submit" value="Update" class="sb" />
+                </td>
+            </form>
+            {{else}}
+            <td>{{a}}</td>
+            <td>{{b}}</td>
+            <td>{{c}}</td>
+            <td>{{d}}</td>
+            <td class="bt">
+                <form action="/edit">
+                    <input type="hidden" value="{{_id}}" name="id" />
+                    <input type="submit" value="Edit" class="sb" />
+                </form>
+            </td>
+            {{/if}}
+            <td class="bt">
+                <form action="/delete">
+                    <input type="hidden" value="{{_id}}" name="id" />
+                    <input type="submit" onclick="return confirm('Czy usunąć?')" value="Delete" class="sb" />
+                </form>
+
+            </td>
+        </tr>
+        {{/each}}
+
+    </table>
+
+</div>

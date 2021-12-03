@@ -1,0 +1,32 @@
+*{
+    font-size: 20px;
+}
+td{
+    border: 2px solid black;
+    width: 140px;
+}
+th{
+    border: 2px solid black;
+}
+.dane{
+    font-size: 24px;
+    text-decoration: underline;
+    color:gray;
+}
+.short{
+    width: 20px;
+}
+.base{
+    position:absolute;
+    top: 50px;
+    left: 300px;
+}
+h1{
+    text-decoration: underline;
+}
+.bt{
+    width: 90px;
+}
+.sb{
+    width: 90px;
+}
