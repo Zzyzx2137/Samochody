@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var path = require("path");
-const PORT = 5000;
+var PORT = process.env.PORT || 5000
 var hbs = require("express-handlebars");
 app.use(express.static("static"));
 var page = "Tabela";
