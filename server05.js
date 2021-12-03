@@ -14,7 +14,7 @@ const coll1 = new Datastore({
     autoload: true,
 });
 
-app.set("views", path.join(__dirname, "static/views")); // ustalamy katalog views
+app.set("views", path.join(__dirname, "views")); // ustalamy katalog views
 app.engine(
     "hbs",
     hbs({
